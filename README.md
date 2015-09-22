@@ -86,7 +86,7 @@ $('.my-background-video').bgVideo({
 
 All options can alternatively be specified in data attributes on your video tag with a `bgvideo` prefix. Just change camel casing to hyphens and lower case. E.g. `fadeIn` becomes `data-bgvideo-fade-in`.
 ```html
-<video data-bgvideo="true" data-bgvideo-vade-in="2000" [other video params]>
+<video data-bgvideo="true" data-bgvideo-fade-in="2000" [other video params]>
 ```
 
 ### Overriding default options
