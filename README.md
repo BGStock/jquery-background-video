@@ -1,7 +1,7 @@
 # jQuery Background Video
-Instantly improve your HTML5 background videos with a single line of jQuery
+Instantly improve your HTML5 background videos with a single line of jQuery.
 
-Built by the folks over at [BG Stock](https://html5backgroundvideos.com) - Premium HTML5 Background Videos
+Built by the folks over at [BG Stock](https://html5backgroundvideos.com) - Premium HTML5 Background Videos.
 
 ## What does the plugin do?
 The plugin does three things

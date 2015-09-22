@@ -1,0 +1,26 @@
+{
+  "name": "jquery-background-video",
+  "version": "1.0.0",
+  "homepage": "https://github.com/BGStock/jquery-background-video",
+  "authors": [
+    "BG Stock <info@branchdigital.com.au>"
+  ],
+  "description": "Instantly improve your HTML5 background videos with a single line of jQuery",
+  "main": "jquery.background-video.js",
+  "keywords": [
+    "jquery",
+    "background video",
+    "background videos",
+    "html5 video",
+    "video background",
+    "video backgrounds"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
