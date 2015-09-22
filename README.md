@@ -15,6 +15,7 @@ The plugin does three things
  ### 2. Include jquery.background-video.js
  ```<script src="path/to/jquery.background-video.js"></script>```
  ### 3. Add a `<video>` as the first child of the element that you want it to be the background for
+
  ```<div class="element-with-video-bg">
 	<video class="my-background-video" loop autoplay muted poster="path/to/your/poster.jpg">
 		<source src="path/to/video.mp4" type="video/mp4">
@@ -22,8 +23,10 @@ The plugin does three things
 		<source src="path/to/video.ogv" type="video/ogg">
 	</video>
 </div>```
+
 ### 4. Call the plugin on the video element
 In your main JavaScript file
+
 ```$(document).ready(function(){
 	$('.my-background-video').bgVideo();
 });```
@@ -31,5 +34,6 @@ In your main JavaScript file
 *OR*
 
 With a data attribute on the video tag
+
 ```<video data-bgvideo="true" [... other video params]>```
 
