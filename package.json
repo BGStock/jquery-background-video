@@ -1,0 +1,26 @@
+{
+  "name": "jquery-background-video",
+  "version": "1.0.0",
+  "description": "Instantly improve your HTML5 background videos with a single line of jQuery",
+  "main": "jquery.background-video.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BGStock/jquery-background-video.git"
+  },
+  "keywords": [
+    "jquery",
+    "background",
+    "video",
+    "videos",
+    "html5"
+  ],
+  "author": "BG Stock",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BGStock/jquery-background-video/issues"
+  },
+  "homepage": "https://github.com/BGStock/jquery-background-video"
+}
