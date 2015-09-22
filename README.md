@@ -9,6 +9,21 @@ The plugin does three things
  - Emulates `background-size: cover;` / `object-fit: contain;`
  - Destroys the video and prevents it downloading on iOS devices (because they can't do background video)
 
+## Installation
+With bower
+```
+bower install jquery-background-video
+```
+With npm
+```
+npm install jquery-background-video
+```
+With git
+```
+git clone https://github.com/BGStock/jquery-background-video
+```
+Or just download the zip
+
 ## How do I use it?
 ### 1. Include the latest version of jQuery. E.g.
 ```javascript
