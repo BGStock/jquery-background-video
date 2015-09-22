@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 
-// Copyright (c) 2015 BGStock - html5backgroundvideos.com
+// Copyright (c) 2015 BG Stock - html5backgroundvideos.com
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -42,11 +42,15 @@
 			// Fade in video
 			if( $video[0].currentTime > 0 ) {
 				// It's already started playing
-				$video.addClass('is-playing').fadeTo( settings.fadeIn, 1 );
+				$video.fadeTo( settings.fadeIn, 1, function(){
+					$video.addClass('is-playing');
+				});
 			} else {
 				// It hasn't started yet, wait for the playing event
 				$video.on('playing', function(){
-					$video.addClass('is-playing').fadeTo( settings.fadeIn, 1 );
+					$video.fadeTo( settings.fadeIn, 1, function(){
+						$video.addClass('is-playing');
+					});
 				});
 			}
 
@@ -90,6 +94,8 @@
 			'overflow': 'hidden'
 		});
 		$video.css({
+			'min-width': 'auto',
+			'min-height': 'auto',
 			'width': '100%',
 			'height': 'auto',
 			'position': 'absolute',
