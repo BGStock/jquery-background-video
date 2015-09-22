@@ -6,7 +6,7 @@ Built by the folks over at [BG Stock](https://html5backgroundvideos.com) - Premi
 ## What does the plugin do?
 The plugin does three things
  - Allows you to fade in your video when it starts playing (to avoid a sudden jump)
- - Emulates `background-size: cover;` / `object-fit: contain;`
+ - Emulates `background-size: cover;` / `object-fit: cover;`
  - Destroys the video and prevents it downloading on iOS devices (because they can't do background video)
 
 ## Installation
@@ -90,9 +90,6 @@ All options can alternatively be specified in data attributes on your video tag 
 ```
 
 ### Overriding default options
+Example
 ```javascript
 $.fn.bgVideo.defaults.fadeIn = 5000;
-```
-
-## Other things to know
-If you want to fade in the videos, you should add a `no-js` class to your `<html>` tag, which when combined with the plugin CSS, will set the video's opacity to `0` until it starts playing. For best results, include Modernizr in the `<head>` to update the class to `js`.
