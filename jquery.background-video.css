@@ -55,9 +55,9 @@
  * Note the .js class - so non js users still
  * see the video
  */
-.js .video-bg video {
+.js .jquery-background-video {
 	opacity: 0;
 }
-.js .video-bg video.is-playing {
+.js .jquery-background-video.is-playing {
 	opacity: 1;
 }
