@@ -9,6 +9,8 @@ The plugin does three things
  - Emulates `background-size: cover;` / `object-fit: cover;`
  - Destroys the video and prevents it downloading on iOS devices (because they can't do background video)
 
+Example: [http://codepen.io/GusRuss89/pen/bVwNrE](http://codepen.io/GusRuss89/pen/bVwNrE)
+
 ## Installation
 With bower
 ```
