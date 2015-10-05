@@ -4,10 +4,12 @@ Instantly improve your HTML5 background videos with a single line of jQuery.
 Built by the folks over at [BG Stock](https://html5backgroundvideos.com) - Premium HTML5 Background Videos.
 
 ## What does the plugin do?
-The plugin does three things
+The plugin allows you to enhance your background videos in a few ways
  - Allows you to fade in your video when it starts playing (to avoid a sudden jump)
  - Emulates `background-size: cover;` / `object-fit: cover;`
  - Destroys the video and prevents it downloading on iOS devices (because they can't do background video)
+ - Optionally auto-pause video after X seconds (easier on your users' power consumption)
+ - Optionally add and position a pause/play button
 
 Example: [http://codepen.io/GusRuss89/pen/bVwNrE](http://codepen.io/GusRuss89/pen/bVwNrE)
 
@@ -82,7 +84,16 @@ With a data attribute on the video tag
 ### Default options
 ```javascript
 $('.my-background-video').bgVideo({
-	fadeIn: 500 // Fade in duration in milliseconds. 0 for no fade in.
+	fullScreen: false, // Sets the video to be fixed to the full window
+	fadeIn: 500, // Milliseconds to fade video in/out (0 for no fade)
+	pauseAfter: 120, // Seconds to play before pausing (0 for forever)
+	fadeOnPause: false, // For all (including manual) pauses
+	fadeOnEnd: true, // When we've reached the pauseAfter time
+	showPausePlay: true, // Show pause/play button
+	pausePlayXPos: 'right', // left|right|center
+	pausePlayYPos: 'top', // top|bottom|center
+	pausePlayXOffset: '15px', // pixels or percent from side - ignored if positioned center
+	pausePlayYOffset: '15px' // pixels or percent from top/bottom - ignored if positioned center
 });
 ```
 
@@ -95,3 +106,5 @@ All options can alternatively be specified in data attributes on your video tag 
 Example
 ```javascript
 $.fn.bgVideo.defaults.fadeIn = 5000;
+$.fn.bgVideo.defaults.showPausePlay = false;
+```

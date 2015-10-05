@@ -25,6 +25,16 @@
 	// Add js class to html
 	$('html').addClass('js');
 
+	// Add IE8 shim for Date.now()
+	if (!Date.now) {
+		Date.now = function() { return new Date().getTime(); }
+	}
+
+	// Return current time in seconds
+	function currentTime() {
+		return Math.floor(Date.now() / 1000);
+	}
+
 	// The plugin
 	$.fn.bgVideo = function( options ) {
 
@@ -32,27 +42,92 @@
 		var iOS = /iPad|iPhone|iPod/.test(navigator.platform) || /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 		// Settings
-		var settings = $.extend( {}, $.fn.bgVideo.defaults, options );
+		var settings = $.extend({}, $.fn.bgVideo.defaults, options );
 
 		// Do the things
 		return this.each(function() {
 
-			var $video = $(this);
+			// Set some handy variables
+			var $video = $(this); // jQuery Object
+			var video = $video[0]; // DOM node
+			var $container = $video.parent();
+			var $pauseplay = $('<button class="jquery-background-video-pauseplay pause"><span>Pause</span></button>');
+			var start_time; // We'll set this when it starts playing
 
-			// Fade in video
-			if( $video[0].currentTime > 0 ) {
-				// It's already started playing
-				$video.fadeTo( settings.fadeIn, 1, function(){
-					$video.addClass('is-playing');
-				});
-			} else {
-				// It hasn't started yet, wait for the playing event
-				$video.on('playing', function(){
-					$video.fadeTo( settings.fadeIn, 1, function(){
-						$video.addClass('is-playing');
-					});
-				});
+
+			// Check for any data attributes that will override the settings for this particular element
+			var el_settings = $.extend({}, settings);
+			var data_attrs = $video.data();
+			$.each( data_attrs, function( data_name, data_val ) {
+				if( data_name.indexOf('bgvideo') === 0 ) {
+					// It's a match! Strip the bgvideo prefix and lowercase the first letter
+					data_name = data_name.replace('bgvideo', '');
+					data_name = data_name.charAt(0).toLowerCase() + data_name.slice(1);
+					// Then set the setting
+					el_settings[data_name] = data_val;
+				}
+			});
+
+			
+			// Attach to playing event
+			$video.on('playing', function(){
+				start_time = currentTime();
+				$video.addClass('is-playing is-visible');
+				$pauseplay.removeClass('play').addClass('pause').find('span').text('Pause');
+			});
+
+
+			// If the video is already playing before js loads
+			if( video.currentTime > 0 ) {
+				$video.addClass('is-playing is-visible');
 			}
+
+
+			// Attach to pause event
+			$video.on('pause', function(){
+				$video.removeClass('is-playing');
+				$pauseplay.removeClass('pause').addClass('play').find('span').text('Play');
+				if(el_settings.fadeOnPause) {
+					$video.removeClass('is-visible');
+				}
+			});
+
+
+			// Set default styles
+			$container.css({
+				'position': 'relative',
+				'overflow': 'hidden',
+				'background-size': 'cover',
+				'background-position': 'center center',
+				'background-repeat': 'no-repeat',
+				'background-image': 'url(' + $video.attr('poster') + ')'
+			});
+			$video.css({
+				'min-width': 'auto',
+				'min-height': 'auto',
+				'width': '100%',
+				'height': 'auto',
+				'position': 'absolute',
+				'left': '50%',
+				'top': '50%',
+				'transform': 'translate(-50%,-50%)'
+			});
+			if( el_settings.fullScreen ) {
+				$container.css({
+					'position': 'fixed',
+					'top': '0',
+					'bottom': '0',
+					'left': '0',
+					'right': '0',
+					'height': 'auto',
+					'margin': '0',
+					'z-index': '-1'
+				})
+			}
+
+
+			// Fade in video by setting the transition duration
+			$video.css('transition-duration', el_settings.fadeIn + 'ms');
 
 
 			// Remove on iOS
@@ -71,6 +146,56 @@
 			});
 
 
+			// Pause after X seconds
+			if( el_settings.pauseAfter > 0 ) {
+				$video.on('timeupdate', function(){
+					var now = currentTime();
+					if( now > start_time + el_settings.pauseAfter ) {
+						video.pause();
+						if( el_settings.fadeOnEnd ) {
+							$video.removeClass('is-visible');
+						}
+					}
+				});
+			}
+
+
+			// Play / pause button
+			if( el_settings.showPausePlay ) {
+				// Append pauseplay element created earlier
+				$container.append($pauseplay);
+				// Position element
+				$pauseplay.css({
+					'left':   'auto',
+					'right':  'auto',
+					'top':    'auto',
+					'bottom': 'auto'
+				});
+				$pauseplay.css(el_settings.pausePlayXPos, el_settings.pausePlayXOffset);
+				$pauseplay.css(el_settings.pausePlayYPos, el_settings.pausePlayYOffset);
+				if( el_settings.pausePlayXPos === 'center' ) {
+					$pauseplay.css({
+						'left':        '50%',
+						'margin-left': '-10px'
+					});
+				}
+				if( el_settings.pausePlayYPos === 'center' ) {
+					$pauseplay.css({
+						'top':        '50%',
+						'margin-top': '-10px'
+					});
+				}
+				// Add functionality
+				$pauseplay.on('click', function(){
+					if(video.paused) {
+						video.play();
+					} else {
+						video.pause();
+					}
+				});
+			}
+
+
 		});
 
 
@@ -79,7 +204,16 @@
 
 	// Default settings
 	$.fn.bgVideo.defaults = {
-		fadeIn: 300
+		fullScreen: false, // Sets the video to be fixed to the full window
+		fadeIn: 500, // Milliseconds to fade video in/out (0 for no fade)
+		pauseAfter: 120, // Seconds to play before pausing (0 for forever)
+		fadeOnPause: false, // For all (including manual) pauses
+		fadeOnEnd: true, // When we've reached the pauseAfter time
+		showPausePlay: true, // Show pause/play button
+		pausePlayXPos: 'right', // left|right|center
+		pausePlayYPos: 'top', // top|bottom|center
+		pausePlayXOffset: '15px', // pixels or percent from side - ignored if positioned center
+		pausePlayYOffset: '15px' // pixels or percent from top/bottom - ignored if positioned center
 	};
 
 
@@ -87,22 +221,6 @@
 	$.fn.bgVideo.fitVideo = function( $video ) {
 
 		var $container = $video.parent();
-
-		// Start by setting some CSS
-		$container.css({
-			'position': 'relative',
-			'overflow': 'hidden'
-		});
-		$video.css({
-			'min-width': 'auto',
-			'min-height': 'auto',
-			'width': '100%',
-			'height': 'auto',
-			'position': 'absolute',
-			'left': '50%',
-			'top': '50%',
-			'transform': 'translate(-50%,-50%)'
-		});
 
 		// In general we're done, unless the container is taller than the video
 		var container_height = $container.height(),
@@ -121,13 +239,7 @@
 
 	// Auto run based on data attributes
 	$(document).ready(function(){
-		$('[data-bgvideo]').each(function(){
-			var options = {};
-			if($(this).data('bgvideo-fade-in')) {
-				options.fadeIn = $(this).data('bgvideo-fade-in');
-			}
-			$(this).bgVideo( options );
-		});
+		$('[data-bgvideo]').bgVideo();
 	});
 
 

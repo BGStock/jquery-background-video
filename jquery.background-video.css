@@ -57,7 +57,52 @@
  */
 .js .jquery-background-video {
 	opacity: 0;
+	-webkit-transition: opacity 300ms linear;
+			transition: opacity 300ms linear;
 }
-.js .jquery-background-video.is-playing {
+.js .jquery-background-video.is-visible {
 	opacity: 1;
+}
+
+/**
+ * Pause/play button
+ */ 
+.jquery-background-video-pauseplay {
+	position: absolute;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	width: 20px;
+	height: 20px;
+	top: 15px;
+	right: 15px;
+	padding: 0;
+	cursor: pointer;
+	outline: none !important;
+}
+.jquery-background-video-pauseplay span {
+	display: none;
+}
+.jquery-background-video-pauseplay:after,
+.jquery-background-video-pauseplay:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	-webkit-transition: all .3s ease;
+			transition: all .3s ease;
+}
+.jquery-background-video-pauseplay.play:before {
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-left: 15px solid #FFF;
+}
+.jquery-background-video-pauseplay.pause:before,
+.jquery-background-video-pauseplay.pause:after {
+	border-top: 10px solid #FFF;
+	border-bottom: 10px solid #FFF;
+	border-left: 5px solid #FFF;
+}
+.jquery-background-video-pauseplay.pause:after {
+	left: 10px;
 }
