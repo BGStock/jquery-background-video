@@ -84,7 +84,7 @@ With a data attribute on the video tag
 ### Default options
 ```javascript
 $('.my-background-video').bgVideo({
-	fullScreen: false, // Sets the video to be fixed to the full window
+	fullScreen: false, // Sets the video to be fixed to the full window - your <video> and it's container should be direct descendents of the <body> tag
 	fadeIn: 500, // Milliseconds to fade video in/out (0 for no fade)
 	pauseAfter: 120, // Seconds to play before pausing (0 for forever)
 	fadeOnPause: false, // For all (including manual) pauses
