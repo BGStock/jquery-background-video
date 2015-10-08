@@ -122,7 +122,7 @@
 					'height': 'auto',
 					'margin': '0',
 					'z-index': '-1'
-				})
+				});
 			}
 
 
@@ -147,6 +147,7 @@
 
 
 			// Pause after X seconds
+			el_settings.pauseAfter = parseInt( el_settings.pauseAfter, 10 );
 			if( el_settings.pauseAfter > 0 ) {
 				$video.on('timeupdate', function(){
 					var now = currentTime();
@@ -222,12 +223,18 @@
 
 		var $container = $video.parent();
 
+		// Do this again every time the screen size changes
+		$video.css({
+			'height': 'auto',
+			'width': '100%'
+		});
+
 		// In general we're done, unless the container is taller than the video
-		var container_height = $container.height(),
+		var container_height = $container.outerHeight(),
 			video_height = $video.height();
 
 		if( container_height > video_height ) {
-			console.log('Container height > video height');
+			//console.log('Container height > video height');
 			$video.css({
 				'height': '100%',
 				'width': 'auto'
