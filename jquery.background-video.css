@@ -69,14 +69,14 @@
  */ 
 .jquery-background-video-pauseplay {
 	position: absolute;
-	background: transparent;
-	border: none;
-	box-shadow: none;
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
 	width: 20px;
 	height: 20px;
 	top: 15px;
 	right: 15px;
-	padding: 0;
+	padding: 0 !important;
 	cursor: pointer;
 	outline: none !important;
 }
