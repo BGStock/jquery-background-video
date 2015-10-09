@@ -74,6 +74,7 @@
 				start_time = currentTime();
 				$video.addClass('is-playing is-visible');
 				$pauseplay.removeClass('play').addClass('pause').find('span').text('Pause');
+				$.fn.bgVideo.fitVideo( $video );
 			});
 
 
@@ -221,22 +222,22 @@
 	// Fit video
 	$.fn.bgVideo.fitVideo = function( $video ) {
 
-		var $container = $video.parent();
+		var $container = $video.parent(),
+			container_height = $container.outerHeight(),
+			container_width = $container.outerWidth();
 
 		// Do this again every time the screen size changes
 		$video.css({
 			'height': 'auto',
-			'width': '100%'
+			'width': container_width + 'px'
 		});
 
-		// In general we're done, unless the container is taller than the video
-		var container_height = $container.outerHeight(),
-			video_height = $video.height();
+		var video_height = $video.height();
 
 		if( container_height > video_height ) {
 			//console.log('Container height > video height');
 			$video.css({
-				'height': '100%',
+				'height': container_height + 'px',
 				'width': 'auto'
 			});
 		}

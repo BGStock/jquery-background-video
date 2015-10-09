@@ -42,8 +42,8 @@
 	height: auto;
 	top: 50%;
 	left: 50%;
-	-o-object-fit: contain;
-	   object-fit: contain;
+	-o-object-fit: cover;
+	   object-fit: cover;
 	-webkit-transform: translate(-50%,-50%);
 	   -moz-transform: translate(-50%,-50%);
 	    -ms-transform: translate(-50%,-50%);
