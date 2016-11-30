@@ -20,7 +20,7 @@ bower install jquery-background-video
 ```
 With npm
 ```
-npm install jquery-background-video
+npm install --save jquery-background-video
 ```
 With git
 ```
