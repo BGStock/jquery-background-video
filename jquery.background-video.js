@@ -50,6 +50,7 @@
 			// Set some handy variables
 			var $video = $(this); // jQuery Object
 			var video = $video[0]; // DOM node
+			var poster = $video.attr('poster') || '';
 			var $container = $video.parent();
 			var $pauseplay = $('<button class="jquery-background-video-pauseplay pause"><span>Pause</span></button>');
 			var start_time; // We'll set this when it starts playing
@@ -101,7 +102,7 @@
 				'background-size': 'cover',
 				'background-position': 'center center',
 				'background-repeat': 'no-repeat',
-				'background-image': 'url(' + $video.attr('poster') + ')'
+				'background-image': 'url(' + poster + ')'
 			});
 			$video.css({
 				'min-width': 'auto',
