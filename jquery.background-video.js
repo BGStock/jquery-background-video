@@ -69,10 +69,12 @@
 				}
 			});
 
-			
+
 			// Attach to playing event
 			$video.on('playing', function(){
-				start_time = currentTime();
+				if(start_time == null){
+					start_time = currentTime();
+				}
 				$video.addClass('is-playing is-visible');
 				$pauseplay.removeClass('play').addClass('pause').find('span').text('Pause');
 				$.fn.bgVideo.fitVideo( $video );
