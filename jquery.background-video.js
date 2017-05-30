@@ -194,6 +194,7 @@
 				$pauseplay.on('click', function(){
 					if(video.paused) {
 						video.play();
+						start_time = currentTime();
 					} else {
 						video.pause();
 					}
