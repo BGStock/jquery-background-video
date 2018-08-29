@@ -39,7 +39,19 @@
 	$.fn.bgVideo = function( options ) {
 
 		// @bool iOS
-		var iOS = /iPad|iPhone|iPod/.test(navigator.platform) || /iPad|iPhone|iPod/.test(navigator.userAgent);
+		function iOSversion() {
+			if (/iP(hone|od|ad)/.test(navigator.platform)) {
+				var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+				return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+			}
+		}
+
+		var iOSVersion = iOSversion();
+		var old_iOS = false;
+
+		if (iOSVersion && (iOSVersion[0] < 10)){
+			old_iOS = true;
+		}
 
 		// Settings
 		var settings = $.extend({}, $.fn.bgVideo.defaults, options );
@@ -135,7 +147,7 @@
 
 
 			// Remove on iOS
-			if( iOS ) {
+			if( old_iOS ) {
 				// Unset sources to prevent them from continuing to download
 				$video.attr('src', '');
 				$video.find('source').attr('src', '');
@@ -166,7 +178,7 @@
 
 
 			// Play / pause button
-			if( el_settings.showPausePlay && !iOS ) {
+			if( el_settings.showPausePlay && !old_iOS ) {
 				// Append pauseplay element created earlier
 				$container.append($pauseplay);
 				// Position element

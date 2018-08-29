@@ -41,7 +41,7 @@ Or just download the zip
 
 ```html
 <div class="element-with-video-bg jquery-background-video-wrapper">
-	<video class="my-background-video jquery-background-video" loop autoplay muted poster="path/to/your/poster.jpg">
+	<video class="my-background-video jquery-background-video" loop autoplay muted playsinline poster="path/to/your/poster.jpg">
 		<source src="path/to/video.mp4" type="video/mp4">
 		<source src="path/to/video.webm" type="video/webm">
 		<source src="path/to/video.ogv" type="video/ogg">
@@ -57,6 +57,8 @@ If you're using the fade-in option you should also set the poster image as a `ba
 }
 ```
 It's important to use `background-image` instead of the shorthand `background` because the plugin CSS sets `background-position`, `background-repeat` and `background-size`, which would be overwritten by the shorthand `background`.
+
+iOS Support: Automatic playing of videos is supported as of iOS 10+, but requires the `playsinline` attribute on the `<video>` tag.
 
 ### 4. Call the plugin on the video element
 In your main JavaScript file
